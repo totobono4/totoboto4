@@ -1,0 +1,12 @@
+{
+    "servers" : {
+        "ProjectOzone3": {
+            "path" : "./servers/ProjectOzone3/",
+            "regex" : {
+                "Server" : "/(.*\\[Server thread\/INFO\\] \\[minecraft\/DedicatedServer\\]: [^\/].*|.*\\[Server thread\/INFO\\] \\[minecraft\/MinecraftServer\\]:.*)/",
+                "ChatMinecraft" : "/\\[Server thread\/INFO\\] \\[minecraft\/DedicatedServer\\]: <(.*)> ([^\/].*)/",
+                "Online" : "/(.*\\[Server thread\/INFO\\] \\[minecraft\/DedicatedServer\\]: Done)/"
+            }
+        }
+    }
+}

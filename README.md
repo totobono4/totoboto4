@@ -1,3 +1,3 @@
 # totoboto4
 
-The totobono4 Discord Bot.
+The totobono4's Discord Bot.

@@ -11,9 +11,8 @@ const serverFileName = Path.resolve(__dirname, "servers.json");
 const serverJson = require(serverFileName);
 const { cwd } = require("process");
 
-const channelIdServer = "797554643018055720";
-//const channelIdServer = "828559514495090688";
-const channelIdChat = "828571744670973962";
+const channelIdServer = serverJson.channelIdServer;
+const channelIdChat = serverJson.channelIdChat;
 
 let serverPath = null;
 let bat = null;

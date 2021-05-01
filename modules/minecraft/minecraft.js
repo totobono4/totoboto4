@@ -40,7 +40,7 @@ exports.whitelist = [
 exports.commands = {
     test:     "minecraft test",
 
-    versions: "minecraft versions",
+    //versions: "minecraft versions",
 
     list:     "minecraft list",
     select:   "minecraft select",
@@ -124,7 +124,8 @@ async function listServers()
 {
     const ChannelServer = client.channels.cache.get(channelIdServer)
 
-    ChannelServer.send(Object.keys(serverJson.servers));
+    if (Object.keys(serverJson.servers).length > 0) ChannelServer.send(Object.keys(serverJson.servers));
+    else ChannelServer.send("Aucun serveur dans la base de donnée.");
 }
 
 async function selectServer(selectedServer)

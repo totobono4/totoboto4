@@ -36,20 +36,20 @@ exports.whitelist = [
     "427251511500996608"
 ]
 
-exports.commands = {
-    test:     "minecraft test",
+exports.commands = [
+    "minecraft test",
 
     //versions: "minecraft versions",
 
-    list:     "minecraft list",
-    select:   "minecraft select",
+    "minecraft list",
+    "minecraft select",
 
-    statut:   "minecraft statut",
-    start:    "minecraft start",
-    stop:     "minecraft stop"
-}
+    "minecraft statut",
+    "minecraft start",
+    "minecraft stop"
+]
 
-exports.minecraftModule = async (prefix, message) => {
+exports.process = async (prefix, message) => {
 
     if (message.content.startsWith(`${prefix}${this.commands.versions}`)) {
 		listVersions();

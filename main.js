@@ -12,8 +12,7 @@ const client = new Discord.Client();
 exports.client = client;
 
 const modules = [
-	require('./modules/music/music.js'),
-	require('./modules/minecraft/minecraft.js')
+	require('./modules/music/music.js')
 ]
 
 client.once("ready", () => {

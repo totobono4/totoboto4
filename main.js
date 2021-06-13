@@ -13,7 +13,8 @@ exports.client = client;
 
 const modules = [
 	require('./modules/music/music.js'),
-	require('./modules/danbooru/danbooru.js')
+	require('./modules/danbooru/danbooru.js'),
+	require('./modules/nekoslife/nekoslife.js')
 ]
 
 client.once("ready", () => {

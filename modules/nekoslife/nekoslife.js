@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 const https = require('https');
 
-const client = require('nekos.life');
-const neko = new client();
+const { client } = require("../../main.js");
+
+const nekoclient = require('nekos.life');
+const neko = new nekoclient();
 
 let author;
 
@@ -12,13 +14,13 @@ const sfwKeys = Object.keys(sfwCommands);
 const nsfwCommands = neko.nsfw;
 const nsfwKeys = Object.keys(nsfwCommands);
 
-exports.commands = ['help'].concat(sfwKeys).concat(nsfwKeys);
+exports.commands = ['nekohelp'].concat(sfwKeys).concat(nsfwKeys);
 
 exports.process = async (prefix, message) => {
 
     author = message.author;
 
-    if (message.content.startsWith(`${prefix}help`)) {
+    if (message.content.startsWith(`${prefix}nekohelp`)) {
 		help(message);
 		return;
 	}
@@ -70,5 +72,25 @@ async function help(message) {
     let help = 'commands :\n[ ' + sfwKeys.join(' - ') + '] ';
     if (message.channel.nsfw) help += '\n\nnsfw commands :\n[ ' + nsfwKeys.join(' - ') + ' ]';
 
-    message.channel.send(help);
+    message.channel.send(
+        nekosMessage('neko help', null, help)
+    );
 }
+
+function nekosMessage(titleCommand, gifURL, message_description)
+{
+    return new Discord.MessageEmbed()
+        .setTitle(titleCommand)
+        .setURL(gifURL)
+        .setAuthor(
+            author.username,
+            client.user.avatarURL
+        )
+        .setDescription(message_description)
+        .setTimestamp(new Date())
+        .setFooter(
+            "totoboto4 nekos services",
+            client.user.avatarURL
+        );
+}
+

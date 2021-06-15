@@ -25,7 +25,8 @@ exports.process = async (prefix, message) => {
 		return;
 	}
 
-    const nekommand = message.content.substring(1);
+    const nekoArgs = message.content.split(`${prefix}`).pop();
+    const nekommand = nekoArgs.split(' ').shift();
 
     if (message.content.startsWith(`${prefix}OwOify`))
     {
@@ -38,7 +39,7 @@ exports.process = async (prefix, message) => {
 		return;
 	}
 
-    if (!message.channel.nsfw)
+    if (!message.channel.nsfw && nsfwKeys.includes(nekommand))
     {
         message.channel.send('Vous ne pouvez pas utiliser cette commande dans ce salon :/');
         return;
@@ -69,7 +70,7 @@ async function nsfw(message, nekommand) {
 }
 
 async function help(message) {
-    let help = 'commands :\n[ ' + sfwKeys.join(' - ') + '] ';
+    let help = 'commands :\n[ ' + sfwKeys.join(' - ') + ' ]';
     if (message.channel.nsfw) help += '\n\nnsfw commands :\n[ ' + nsfwKeys.join(' - ') + ' ]';
 
     message.channel.send(

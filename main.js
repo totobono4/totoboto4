@@ -5,17 +5,20 @@
  *\date		17/03/2021
 **/
 
-const Discord = require("discord.js");
-const { prefix, token } = require("./config.json");
+const config = require("./config.json");
 
+let mode = null;
+if (process.argv.length === 3) mode = process.argv[2];
+const launch = config.launch[mode];
+const { prefix, token } = launch;
+const moduleConf = require("./config.json").modules;
+
+const Discord = require("discord.js");
 const client = new Discord.Client();
 exports.client = client;
 
-const modules = [
-	require('./modules/music/music.js'),
-	require('./modules/danbooru/danbooru.js'),
-	require('./modules/nekoslife/nekoslife.js')
-]
+const modules = []
+moduleConf.forEach(element => modules.push(require(element.path)));
 
 client.once("ready", () => {
 	console.log("Ready!");
@@ -52,3 +55,10 @@ client.on("message", async message => {
 
 //Token
 client.login(token);
+
+const moduleNames = [];
+moduleConf.forEach(element => moduleNames.push(element.name));
+console.log(`mode : [ ${mode} ]`);
+console.log(`prefix : [ ${prefix} ]`);
+//console.log(`token:[${token}]`);
+console.log(`loaded-modules : [ ${moduleNames.join(' - ')} ]`);

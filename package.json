@@ -4,7 +4,8 @@
   "description": "bot discord de totobono4",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
+    "start": "node main.js release",
+    "canary": "node main.js canary",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "totobono4",

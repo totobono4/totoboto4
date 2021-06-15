@@ -1,4 +1,26 @@
 {
-	"token"  : "NjgzMzI4Mjk3MTY5MzIxOTk2.Xlp9EQ.E-nxUvPtf_0qUXpG0dm_6K2xpoo",
-	"prefix" : "."
+	"launch": {
+		"canary" : {
+			"token" : "ODU0MzAwMjQ2NDM0OTA2MTIy.YMh7Gg.lTaduXBv-nRYGrxX_o8eqJ1vunc",
+			"prefix" : "4nary."
+		},
+		"release" : {
+			"token"  : "NjgzMzI4Mjk3MTY5MzIxOTk2.Xlp9EQ.E-nxUvPtf_0qUXpG0dm_6K2xpoo",
+			"prefix" : "."
+		}
+	},
+	"modules": [
+		{
+			"name": "Music",
+			"path": "./modules/music/music.js"
+		},
+		{
+			"name": "Danbooru",
+			"path": "./modules/danbooru/danbooru.js"
+		},
+		{
+			"name": "NekosLife",
+			"path": "./modules/nekoslife/nekoslife.js"
+		}
+	]
 }

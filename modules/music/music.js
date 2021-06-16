@@ -16,7 +16,7 @@ exports.commands = [
     "unloop"
 ]
 
-exports.process = async (prefix, message) => {
+exports.process = async (prefix, args, message) => {
 
     const serverQueue = queue.get(message.guild.id);
     author = message.author;

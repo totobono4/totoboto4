@@ -9,7 +9,7 @@ exports.commands = [
     'danbooru'
 ]
 
-exports.process = async (prefix, message) => {
+exports.process = async (prefix, args, message) => {
 
     author = message.author;
 

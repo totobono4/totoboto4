@@ -49,7 +49,7 @@ exports.commands = [
     "minecraft stop"
 ]
 
-exports.process = async (prefix, message) => {
+exports.process = async (prefix, args, message) => {
 
     if (message.content.startsWith(`${prefix}${this.commands.versions}`)) {
 		listVersions();

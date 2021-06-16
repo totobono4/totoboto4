@@ -35,19 +35,28 @@ client.once("disconnect", () => {
 client.on("message", async message => {	
 	if (message.author.bot) return;
 	if (!message.content.startsWith(prefix)) return;
+	const completeCommand = message.content.split(' ').shift().toLowerCase();
+	const args = message.content.replace(prefix, '').split(' ');
+	args[0] = args[0].toLowerCase();
 
 	for (const module of modules)
 	{
 		for (const command of module.commands)
 		{
-			if (message.content.startsWith(`${prefix}${command}`))
+			if (completeCommand === `${prefix}${command}`)
 			{
-				module.process(prefix, message);
+				module.process(prefix, args, message);
 				return;
 			}
 		}
-	}	
+	}
 	//Autres Commandes
+
+	if (args[0] === 'help') 
+	{
+		message.channel.send("Aide disponibles : [ nekohelp ]");
+		return;
+	}
 	
 	//Default
 	message.channel.send("Entrez une commande valide!");

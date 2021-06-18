@@ -68,8 +68,8 @@ async function sfw(message, nekommand) {
 
     const mentionnedUsers = message.mentions.users;
 
-    if (mentionnedUsers.size > 0) message.channel.send(nekosMessage('neko', url, `**${author.username}**.${nekommand}(**${mentionnedUsers.first().username}**);`));
-    else message.channel.send(nekosMessage('neko', url, ''));
+    if (mentionnedUsers.size > 0) message.channel.send(nekosMessage(nekommand, url, `**${author.username}**.${nekommand}(**${mentionnedUsers.first().username}**);`));
+    else message.channel.send(nekosMessage(nekommand, url, ''));
 }
 
 async function nsfw(message, nekommand) {
@@ -77,8 +77,8 @@ async function nsfw(message, nekommand) {
 
     const mentionnedUsers = message.mentions.users;
 
-    if (mentionnedUsers.size > 0) message.channel.send(nekosMessage('neko', url, `**${author.username}**.${nekommand}(**${mentionnedUsers.first().username}**);`));
-    else message.channel.send(nekosMessage('neko', url, ''));
+    if (mentionnedUsers.size > 0) message.channel.send(nekosMessage(nekommand, url, `**${author.username}**.${nekommand}(**${mentionnedUsers.first().username}**);`));
+    else message.channel.send(nekosMessage(nekommand, url, ''));
 }
 
 async function help(message) {

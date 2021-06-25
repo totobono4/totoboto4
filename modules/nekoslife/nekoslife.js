@@ -22,7 +22,16 @@ const nsfwNewCommands = {};
 nsfwKeys.forEach((key, i) => nsfwNewCommands[key.toLowerCase()] = nsfwFuncs[i]);
 const nsfwNewKeys = Object.keys(nsfwNewCommands);
 
-exports.commands = ['nekohelp'].concat(sfwNewKeys).concat(nsfwNewKeys);
+exports.commands = sfwNewKeys;
+exports.commandsNSFW = nsfwNewKeys
+
+/*
+    Unsupported Commands :
+
+    Commands : [ tickle - slap - poke - pat - neko - meow - lizard - kiss - hug - foxgirl - feed - cuddle - why - cattext - owoify - 8ball - fact - nekogif - kemonomimi - holo - smug - baka - woof - spoiler - wallpaper - goose - gecg - avatar - waifu ]
+
+    NSFW Commands : [ randomhentaigif - pussy - nekogif - neko - lesbian - kuni - cumsluts - classic - boobs - bj - anal - avatar - yuri - trap - tits - girlsologif - girlsolo - pussywankgif - pussyart - kemonomimi - kitsune - keta - holo - holoero - hentai - futanari - femdom - feetgif - erofeet - feet - ero - erokitsune - erokemonomimi - eroneko - eroyuri - cumarts - blowjob - spank - gasm ]
+*/
 
 exports.process = async (prefix, args, message) => {
 
@@ -40,18 +49,12 @@ exports.process = async (prefix, args, message) => {
         return;
     }
 
-    if (message.content.startsWith(`${prefix}`) && sfwNewKeys.includes(nekommand)) {
+    if (message.content.startsWith(`${prefix}`) && this.commands.includes(nekommand)) {
 		sfw(message, nekommand);
 		return;
 	}
 
-    if (!message.channel.nsfw && nsfwKeys.includes(nekommand))
-    {
-        message.channel.send('Vous ne pouvez pas utiliser cette commande dans ce salon :/');
-        return;
-    }
-
-    if (message.content.startsWith(`${prefix}`) && nsfwNewKeys.includes(nekommand)) {
+    if (message.content.startsWith(`${prefix}`) && this.commandsNSFW.includes(nekommand)) {
 		nsfw(message, nekommand);
 		return;
 	}
@@ -79,15 +82,6 @@ async function nsfw(message, nekommand) {
 
     if (mentionnedUsers.size > 0) message.channel.send(nekosMessage(nekommand, url, `**${author.username}**.${nekommand}(**${mentionnedUsers.first().username}**);`));
     else message.channel.send(nekosMessage(nekommand, url, ''));
-}
-
-async function help(message) {
-    let help = 'commands :\n[ ' + sfwKeys.join(' - ') + ' ]';
-    if (message.channel.nsfw) help += '\n\nnsfw commands :\n[ ' + nsfwKeys.join(' - ') + ' ]';
-
-    message.channel.send(
-        nekosMessage('neko help', null, help)
-    );
 }
 
 function nekosMessage(titleCommand, gifURL, message_description)

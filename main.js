@@ -18,7 +18,7 @@ const client = new Discord.Client();
 exports.client = client;
 
 const modules = []
-moduleConf.forEach(element => modules.push(require(element.path)));
+moduleConf.forEach(element => modules.push({ name : element.name, module : require(element.path) }));
 
 client.once("ready", () => {
 	console.log("Ready!");
@@ -33,28 +33,53 @@ client.once("disconnect", () => {
 });
 
 client.on("message", async message => {	
-	if (message.author.bot) return;
+	author = message.author;
+	if (author.bot) return;
 	if (!message.content.startsWith(prefix)) return;
 	const completeCommand = message.content.split(' ').shift().toLowerCase();
 	const args = message.content.replace(prefix, '').split(' ');
 	args[0] = args[0].toLowerCase();
 
-	for (const module of modules)
-	{
-		for (const command of module.commands)
-		{
-			if (completeCommand === `${prefix}${command}`)
-			{
+	for (const Module of modules) {
+		const module = Module.module;
+		let commands = [];
+
+		if (module.commands !== undefined)
+			commands = commands.concat(module.commands);
+
+		if (message.channel.nsfw && module.commandsNSFW !== undefined)
+			commands = commands.concat(module.commandsNSFW);
+
+		for (const command of commands){
+			if (completeCommand === `${prefix}${command}`){
 				module.process(prefix, args, message);
 				return;
 			}
 		}
 	}
-	//Autres Commandes
 
+	//Autres Commandes
 	if (args[0] === 'help') 
 	{
-		message.channel.send("Aide disponibles : [ nekohelp ]");
+		let help = '';
+
+		for (const Module of modules) {
+			const module = Module.module;
+
+			if (module.commands !== undefined || (message.channel.nsfw && module.commandsNSFW !== undefined)) {
+				help += `\n${Module.name} :`;
+
+				if (module.commands !== undefined)
+					help += '\nCommands : [ ' + module.commands.join(' - ') + ' ]\n';
+
+				if (message.channel.nsfw && module.commandsNSFW !== undefined)
+					help += '\nNSFW Commands : [ ' + module.commandsNSFW.join(' - ') + ' ]\n';
+			}
+		}
+
+		message.channel.send(
+        	mainMessage('help', null, help, 'totoboto4 services')
+    	);
 		return;
 	}
 	
@@ -62,11 +87,29 @@ client.on("message", async message => {
 	message.channel.send("Entrez une commande valide!");
 });
 
+function mainMessage(titleCommand, url, message_description, footer)
+{
+    return new Discord.MessageEmbed()
+        .setTitle(titleCommand)
+        .setURL(url)
+        .setImage(url)
+        .setAuthor(
+            author.username,
+            client.user.avatarURL
+        )
+        .setDescription(message_description)
+        .setTimestamp(new Date())
+        .setFooter(
+            footer,
+            client.user.avatarURL
+        );
+}
+
 //Token
 client.login(token);
 
 const moduleNames = [];
-moduleConf.forEach(element => moduleNames.push(element.name));
+modules.forEach(element => moduleNames.push(element.name));
 console.log(`mode : [ ${mode} ]`);
 console.log(`prefix : [ ${prefix} ]`);
 //console.log(`token:[${token}]`);

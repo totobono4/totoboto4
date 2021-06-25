@@ -5,19 +5,13 @@ const apiKey = require('./config.json').apiKey;
 
 let author;
 
-exports.commands = [
+exports.commandsNSFW = [
     'danbooru'
 ]
 
 exports.process = async (prefix, args, message) => {
 
     author = message.author;
-
-    if (!message.channel.nsfw)
-    {
-        message.channel.send('Vous ne pouvez pas utiliser cette commande dans ce salon :/');
-        return;
-    }
 
     if (message.content.startsWith(`${prefix}danbooru`)) {
 		random(message);

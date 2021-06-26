@@ -110,6 +110,7 @@ client.login(token);
 
 const moduleNames = [];
 modules.forEach(element => moduleNames.push(element.name));
+console.log(`release : ${config.release}`);
 console.log(`mode : [ ${mode} ]`);
 console.log(`prefix : [ ${prefix} ]`);
 //console.log(`token:[${token}]`);

@@ -44,7 +44,7 @@ exports.process = async (args, message) => {
 
         default:
             message.channel.send(
-                musicMessage(`music error', null, 'Cette commande n'existe pas.`)
+                musicMessage(`music error`, null, `Cette commande n'existe pas.`)
             );
     }
 }

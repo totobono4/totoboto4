@@ -67,18 +67,18 @@ client.on("message", async message => {
 			const module = Module.module;
 
 			if (module.commands !== undefined || (message.channel.nsfw && module.commandsNSFW !== undefined)) {
-				help += `\n${Module.name} :`;
+				help += `\n**${Module.name}** :`;
 
 				if (module.commands !== undefined)
-					help += '\nCommands : [ ' + module.commands.join(' - ') + ' ]\n';
+					help += '\n__Commands__ : [ ' + module.commands.join(' - ') + ' ]\n';
 
 				if (message.channel.nsfw && module.commandsNSFW !== undefined)
-					help += '\nNSFW Commands : [ ' + module.commandsNSFW.join(' - ') + ' ]\n';
+					help += '\n__NSFW Commands__ : [ ' + module.commandsNSFW.join(' - ') + ' ]\n';
 			}
 		}
 
 		message.channel.send(
-        	mainMessage('help', null, help, 'totoboto4 services')
+        	mainMessage('help', `https://www.patreon.com/bePatron?u=28615868`, help, 'totoboto4 services')
     	);
 		return;
 	}

@@ -10,11 +10,14 @@ let nekommand;
 let author;
 
 exports.commands = [
+    'smug',
+    'baka',
     'tickle',
     'slap',
     'poke',
     'pat',
     'neko',
+    'nekogif',
     'meow',
     'lizard',
     'kiss',
@@ -22,24 +25,63 @@ exports.commands = [
     'foxgirl',
     'feed',
     'cuddle',
-    'nekogif',
     'kemonomimi',
     'holo',
-    'smug',
-    'baka',
     'woof',
-    'spoiler',
     'wallpaper',
     'goose',
     'gecg',
     'avatar',
     'waifu',
 
-    'cattext',
     'why',
+    'cattext',
     'owoify',
+    '8ball',
     'fact',
-    '8ball'
+    'spoiler'
+]
+
+exports.commandsNSFW = [
+    'randomhentaigif',
+    'pussy',
+    'nsfwnekogif',
+    'nsfwneko',
+    'lesbian',
+    'kuni',
+    'cumsluts',
+    'classic',
+    'boobs',
+    'bj',
+    'anal',
+    'nsfwavatar',
+    'yuri',
+    'trap',
+    'tits',
+    'girlsologif',
+    'girlsolo',
+    'pussywankgif',
+    'pussyart',
+    'nsfwkemonomimi',
+    'kitsune',
+    'keta',
+    'nsfwholo',
+    'holoero',
+    'hentai',
+    'futanari',
+    'femdom',
+    'feetgif',
+    'erofeet',
+    'feet',
+    'ero',
+    'erokitsune',
+    'erokemonomimi',
+    'eroneko',
+    'eroyuri',
+    'cumarts',
+    'blowjob',
+    'spank',
+    'gasm'
 ]
 
 exports.process = async (args, message) => {
@@ -47,6 +89,12 @@ exports.process = async (args, message) => {
     author = message.author;
 
     switch(nekommand) {
+        case 'smug':
+            actions(message, nekoclient.sfw.smug);
+            break;
+        case 'baka':
+            actions(message, nekoclient.sfw.baka);
+            break;
         case 'tickle':
             actions(message, nekoclient.sfw.tickle);
             break;
@@ -61,6 +109,9 @@ exports.process = async (args, message) => {
             break;
         case 'neko':
             actions(message, nekoclient.sfw.neko);
+            break;
+        case 'nekogif':
+            actions(message, nekoclient.sfw.nekoGif);
             break;
         case 'meow':
             actions(message, nekoclient.sfw.meow);
@@ -83,20 +134,11 @@ exports.process = async (args, message) => {
         case 'cuddle':
             actions(message, nekoclient.sfw.cuddle);
             break;
-        case 'nekogif':
-            actions(message, nekoclient.sfw.nekoGif);
-            break;
         case 'kemonomimi':
             actions(message, nekoclient.sfw.kemonomimi);
             break;
         case 'holo':
             actions(message, nekoclient.sfw.holo);
-            break;
-        case 'smug':
-            actions(message, nekoclient.sfw.smug);
-            break;
-        case 'baka':
-            actions(message, nekoclient.sfw.baka);
             break;
         case 'woof':
             actions(message, nekoclient.sfw.woof);
@@ -117,27 +159,11 @@ exports.process = async (args, message) => {
             actions(message, nekoclient.sfw.waifu);
             break;
 
-/*
-    Unsupported Commands :
-
-    NSFW Commands : [ randomhentaigif - pussy - nekogif - neko - lesbian - kuni - cumsluts - classic - boobs - bj - anal - avatar - yuri - trap - tits - girlsologif - girlsolo - pussywankgif - pussyart - kemonomimi - kitsune - keta - holo - holoero - hentai - futanari - femdom - feetgif - erofeet - feet - ero - erokitsune - erokemonomimi - eroneko - eroyuri - cumarts - blowjob - spank - gasm ]
-*/
-
-        case 'spoiler':
-            if (args.length > 1) {
-                spoiler(message, args);
-            }
-            else {
-                message.channel.send(
-                    nekosMessage('neko error', null, `La nekommand ${nekommand} veut que tu lui donnes des lettres à spoiler.`)
-                );
-            }
+        case 'why':
+            why(message);
             break;
         case 'cattext':
             catText(message);
-            break;
-        case 'why':
-            why(message);
             break;
         case 'owoify':
             if (args.length > 1) {
@@ -149,11 +175,139 @@ exports.process = async (args, message) => {
                 );
             }
             break;
+        case '8ball':
+            ball(message, args);
+            break;
         case 'fact':
             fact(message);
             break;
-        case '8ball':
-            ball(message, args);
+        case 'spoiler':
+            if (args.length > 1) {
+                spoiler(message, args);
+            }
+            else {
+                message.channel.send(
+                    nekosMessage('neko error', null, `La nekommand ${nekommand} veut que tu lui donnes des lettres à spoiler.`)
+                );
+            }
+            break;
+
+        case 'randomhentaigif':
+            actions(message, nekoclient.nsfw.randomHentaiGif);
+            break;
+        case 'pussy':
+            actions(message, nekoclient.nsfw.pussy);
+            break;
+        case 'nsfwnekogif':
+            actions(message, nekoclient.nsfw.nekoGif);
+            break;
+        case 'nsfwneko':
+            actions(message, nekoclient.nsfw.neko);
+            break;
+        case 'lesbian':
+            actions(message, nekoclient.nsfw.lesbian);
+            break;
+        case 'kuni':
+            actions(message, nekoclient.nsfw.kuni);
+            break;
+        case 'cumsluts':
+            actions(message, nekoclient.nsfw.cumsluts);
+            break;
+        case 'classic':
+            actions(message, nekoclient.nsfw.classic);
+            break;
+        case 'boobs':
+            actions(message, nekoclient.nsfw.boobs);
+            break;
+        case 'bj':
+            actions(message, nekoclient.nsfw.bJ);
+            break;
+        case 'anal':
+            actions(message, nekoclient.nsfw.anal);
+            break;
+        case 'nsfwavatar':
+            actions(message, nekoclient.nsfw.avatar);
+            break;
+        case 'yuri':
+            actions(message, nekoclient.nsfw.yuri);
+            break;
+        case 'trap':
+            actions(message, nekoclient.nsfw.trap);
+            break;
+        case 'tits':
+            actions(message, nekoclient.nsfw.tits);
+            break;
+        case 'girlsologif':
+            actions(message, nekoclient.nsfw.girlSoloGif);
+            break;
+        case 'girlsolo':
+            actions(message, nekoclient.nsfw.girlSolo);
+            break;
+        case 'pussywankgif':
+            actions(message, nekoclient.nsfw.pussyWankGif);
+            break;
+        case 'pussyart':
+            actions(message, nekoclient.nsfw.pussyArt);
+            break;
+        case 'nsfwkemonomimi':
+            actions(message, nekoclient.nsfw.kemonomimi);
+            break;
+        case 'kitsune':
+            actions(message, nekoclient.nsfw.kitsune);
+            break;
+        case 'keta':
+            actions(message, nekoclient.nsfw.keta);
+            break;
+        case 'nsfwholo':
+            actions(message, nekoclient.nsfw.holo);
+            break;
+        case 'holoero':
+            actions(message, nekoclient.nsfw.holoEro);
+            break;
+        case 'hentai':
+            actions(message, nekoclient.nsfw.hentai);
+            break;
+        case 'futanari':
+            actions(message, nekoclient.nsfw.futanari);
+            break;
+        case 'femdom':
+            actions(message, nekoclient.nsfw.femdom);
+            break;
+        case 'feetgif':
+            actions(message, nekoclient.nsfw.feetGif);
+            break;
+        case 'erofeet':
+            actions(message, nekoclient.nsfw.eroFeet);
+            break;
+        case 'feet':
+            actions(message, nekoclient.nsfw.feet);
+            break;
+        case 'ero':
+            actions(message, nekoclient.nsfw.ero);
+            break;
+        case 'erokitsune':
+            actions(message, nekoclient.nsfw.eroKitsune);
+            break;
+        case 'erokemonomimi':
+            actions(message, nekoclient.nsfw.eroKemonomimi);
+            break;
+        case 'eroneko':
+            actions(message, nekoclient.nsfw.eroNeko);
+            break;
+        case 'eroyuri':
+            actions(message, nekoclient.nsfw.eroYuri);
+            break;
+        case 'cumarts':
+            actions(message, nekoclient.nsfw.cumArts);
+            break;
+        case 'blowjob':
+            actions(message, nekoclient.nsfw.blowJob);
+            break;
+        case 'spank':
+            actions(message, nekoclient.nsfw.spank);
+            break;
+        case 'gasm':
+            actions(message, nekoclient.nsfw.gasm);
             break;
 
         default :

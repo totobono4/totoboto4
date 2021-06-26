@@ -3,20 +3,25 @@ const https = require('https');
 
 const apiKey = require('./config.json').apiKey;
 
+let danbooruCommand;
 let author;
 
 exports.commandsNSFW = [
     'danbooru'
 ]
 
-exports.process = async (prefix, args, message) => {
-
+exports.process = async (args, message) => {
+    danbooruCommand = args[0];
     author = message.author;
 
-    if (message.content.startsWith(`${prefix}danbooru`)) {
-		random(message);
-		return;
-	}
+    switch(danbooruCommand) {
+        case 'danbooru':
+            random(message);
+            break;
+        
+        default:
+            message.channel.send(`danbooru error`);
+    }
 }
 
 function random(message)

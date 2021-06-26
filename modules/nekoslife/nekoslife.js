@@ -42,9 +42,9 @@ exports.commands = [
     '8ball'
 ]
 
-exports.process = async (prefix, args, message) => {
-    author = message.author;
+exports.process = async (args, message) => {
     nekommand = args[0];
+    author = message.author;
 
     switch(nekommand) {
         case 'tickle':

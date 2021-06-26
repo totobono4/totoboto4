@@ -4,6 +4,7 @@ const ytdl = require("ytdl-core");
 const queue = new Map();
 const { client } = require("../../main.js");
 
+let musicCommand;
 let author;
 let loop = 0;
 
@@ -17,30 +18,34 @@ exports.commands = [
 ]
 
 exports.process = async (prefix, args, message) => {
-
+    musicCommand = args[0];
     const serverQueue = queue.get(message.guild.id);
     author = message.author;
 
-    if (message.content.startsWith(`${prefix}play`)) {
-		execute(message, serverQueue);
-		return;
-	}
-	else if (message.content.startsWith(`${prefix}skip`)) {
-		skip(message, serverQueue);
-		return;
-	}
-	else if (message.content.startsWith(`${prefix}stop`)) {
-		stop(message, serverQueue);
-		return;
-    }
-    else if (message.content.startsWith(`${prefix}loop`)) {
-        loopCommands(message, 1);
-    }
-    else if (message.content.startsWith(`${prefix}oneloop`)) {
-        loopCommands(message, 2);
-    }
-    else if (message.content.startsWith(`${prefix}unloop`)) {
-        loopCommands(message, 0);
+    switch(musicCommand) {
+        case 'play':
+            execute(message, serverQueue);
+            break;
+        case 'skip':
+            skip(message, serverQueue);
+            break;
+        case 'stop':
+            stop(message, serverQueue);
+            break;
+        case 'loop':
+            loopCommands(message, 1);
+            break;
+        case 'oneloop':
+            loopCommands(message, 2);
+            break;
+        case 'unloop':
+            loopCommands(message, 0);
+            break;
+
+        default:
+            message.channel.send(
+                musicMessage(`music error', null, 'Cette commande n'existe pas.`)
+            );
     }
 }
 

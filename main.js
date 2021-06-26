@@ -52,7 +52,7 @@ client.on("message", async message => {
 
 		for (const command of commands){
 			if (completeCommand === `${prefix}${command}`){
-				module.process(prefix, args, message);
+				module.process(args, message);
 				return;
 			}
 		}

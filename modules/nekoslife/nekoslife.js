@@ -379,7 +379,6 @@ async function fact(message) {
 async function ball(message, args) {
     args.shift();
     const ballRes = await (await nekoclient.sfw['8Ball']({text: args.join(" ")}));
-    console.log(ballRes);
 
     message.channel.send(
         nekosMessage(nekommand, ballRes.url, `${ballRes.response}`)

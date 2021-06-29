@@ -20,89 +20,91 @@ exports.client = client;
 const modules = []
 moduleConf.forEach(element => modules.push({ name : element.name, module : require(element.path) }));
 
+let author;
+
 client.once("ready", () => {
-	console.log("Ready!");
+  console.log("Ready!");
 });
 
 client.once("reconnecting", () => {
-	console.log("Reconnecting!");
+  console.log("Reconnecting!");
 });
 
 client.once("disconnect", () => {
-	console.log("Disconnect!");
+  console.log("Disconnect!");
 });
 
 client.on("message", async message => {	
-	author = message.author;
-	if (author.bot) return;
-	if (!message.content.startsWith(prefix)) return;
-	const completeCommand = message.content.split(' ').shift().toLowerCase();
-	const args = message.content.replace(prefix, '').split(' ');
-	args[0] = args[0].toLowerCase();
+  author = message.author;
+  if (author.bot) return;
+  if (!message.content.startsWith(prefix)) return;
+  const completeCommand = message.content.split(' ').shift().toLowerCase();
+  const args = message.content.replace(prefix, '').split(' ');
+  args[0] = args[0].toLowerCase();
 
-	for (const Module of modules) {
-		const module = Module.module;
-		let commands = [];
+  for (const Module of modules) {
+    const module = Module.module;
+    let commands = [];
 
-		if (module.commands !== undefined)
-			commands = commands.concat(module.commands);
+    if (module.commands !== undefined)
+      commands = commands.concat(module.commands);
 
-		if (message.channel.nsfw && module.commandsNSFW !== undefined)
-			commands = commands.concat(module.commandsNSFW);
+    if (message.channel.nsfw && module.commandsNSFW !== undefined)
+      commands = commands.concat(module.commandsNSFW);
 
-		for (const command of commands){
-			if (completeCommand === `${prefix}${command}`){
-				module.process(args, message);
-				return;
-			}
-		}
-	}
+    for (const command of commands){
+      if (completeCommand === `${prefix}${command}`){
+        module.process(message, args);
+        return;
+      }
+    }
+  }
 
-	//Autres Commandes
-	if (args[0] === 'help') 
-	{
-		let help = '';
+  //Autres Commandes
+  if (args[0] === 'help') 
+  {
+    let help = '';
 
-		for (const Module of modules) {
-			const module = Module.module;
+    for (const Module of modules) {
+      const module = Module.module;
 
-			if (module.commands !== undefined || (message.channel.nsfw && module.commandsNSFW !== undefined)) {
-				help += `\n**${Module.name}** :`;
+      if (module.commands !== undefined || (message.channel.nsfw && module.commandsNSFW !== undefined)) {
+        help += `\n**${Module.name}** :`;
 
-				if (module.commands !== undefined)
-					help += '\n__Commands__ : [ ' + module.commands.join(' - ') + ' ]\n';
+        if (module.commands !== undefined)
+          help += '\n__Commands__ : [ ' + module.commands.join(' - ') + ' ]\n';
 
-				if (message.channel.nsfw && module.commandsNSFW !== undefined)
-					help += '\n__NSFW Commands__ : [ ' + module.commandsNSFW.join(' - ') + ' ]\n';
-			}
-		}
+        if (message.channel.nsfw && module.commandsNSFW !== undefined)
+          help += '\n__NSFW Commands__ : [ ' + module.commandsNSFW.join(' - ') + ' ]\n';
+      }
+    }
 
-		message.channel.send(
-        	mainMessage('help', `https://www.patreon.com/bePatron?u=28615868`, help, 'totoboto4 services')
-    	);
-		return;
-	}
-	
-	//Default
-	message.channel.send("Entrez une commande valide!");
+    message.channel.send(
+      mainMessage('help', `https://www.patreon.com/bePatron?u=28615868`, help, 'totoboto4 services')
+    );
+    return;
+  }
+
+  //Default
+  message.channel.send("Entrez une commande valide!");
 });
 
 function mainMessage(titleCommand, url, message_description, footer)
 {
-    return new Discord.MessageEmbed()
-        .setTitle(titleCommand)
-        .setURL(url)
-        .setImage(url)
-        .setAuthor(
-            author.username,
-            client.user.avatarURL
-        )
-        .setDescription(message_description)
-        .setTimestamp(new Date())
-        .setFooter(
-            footer,
-            client.user.avatarURL
-        );
+  return new Discord.MessageEmbed()
+    .setTitle(titleCommand)
+    .setURL(url)
+    .setImage(url)
+    .setAuthor(
+      author.username,
+      client.user.avatarURL
+    )
+    .setDescription(message_description)
+    .setTimestamp(new Date())
+    .setFooter(
+      footer,
+      client.user.avatarURL
+    );
 }
 
 //Token

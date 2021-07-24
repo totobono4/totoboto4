@@ -1,5 +1,4 @@
 {
-  "release": "0.3.0 Alpha",
   "launch": {
     "canary" : {
       "token" : "CANARY_TOKEN",

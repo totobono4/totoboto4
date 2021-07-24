@@ -7,6 +7,7 @@
 
 require('dotenv').config();
 const config = require("./config.json");
+const gitVersion = require('git-tag-version');
 
 let mode = null;
 if (process.argv.length === 3) mode = process.argv[2];
@@ -113,7 +114,7 @@ client.login(process.env[token]);
 
 const moduleNames = [];
 modules.forEach(element => moduleNames.push(element.name));
-console.log(`release : ${config.release}`);
+console.log(`release : ${gitVersion()}`);
 console.log(`mode : [ ${mode} ]`);
 console.log(`prefix : [ ${prefix} ]`);
 //console.log(`token:[${token}]`);

@@ -5,6 +5,7 @@
  *\date		17/03/2021
 **/
 
+require('dotenv').config();
 const config = require("./config.json");
 
 let mode = null;
@@ -108,7 +109,7 @@ function mainMessage(titleCommand, url, message_description, footer)
 }
 
 //Token
-client.login(token);
+client.login(process.env[token]);
 
 const moduleNames = [];
 modules.forEach(element => moduleNames.push(element.name));

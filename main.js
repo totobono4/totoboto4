@@ -4,6 +4,7 @@
  *\version	1.0
  *\date		17/03/2021
 **/
+client.user.setPresence({ game: { name: 'LOLI RGB SQUAD' }, status: 'online' });
 require('dotenv').config();
 const config = require("./config.json");
 const gitVersion = require('git-tag-version');

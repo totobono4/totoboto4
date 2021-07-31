@@ -4,10 +4,7 @@
  *\version	1.0
  *\date		17/03/2021
 **/
-client.user.setActivity("with depression", {
-  type: "PLAYING",
-  url: "https://www.twitch.tv/monstercat"
-});
+bot.user.setPresence({ game: { name: 'with depression', type: "streaming", url: "https://www.twitch.tv/monstercat"}}); 
 require('dotenv').config();
 const config = require("./config.json");
 const gitVersion = require('git-tag-version');

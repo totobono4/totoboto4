@@ -1,7 +1,7 @@
 {
-  "name": "totoboto4",
+  "name": "Lolita",
   "version": "1.0.0",
-  "description": "bot discord de totobono4",
+  "description": "bot discord de traxxibg / code fait par totobono4",
   "main": "main.js",
   "scripts": {
     "start": "node main.js release",

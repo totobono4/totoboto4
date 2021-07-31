@@ -4,10 +4,6 @@
  *\version	1.0
  *\date		17/03/2021
 **/
-bot.user.setPresence({
-  status: 'online',
-  activity: {detail: 'LOLI RGB SQUAD',type: 'PLAYING',}
-})
 require('dotenv').config();
 const config = require("./config.json");
 const gitVersion = require('git-tag-version');

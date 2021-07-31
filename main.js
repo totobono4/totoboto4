@@ -108,7 +108,6 @@ function mainMessage(titleCommand, url, message_description, footer)
       client.user.avatarURL
     );
 }
-
 //Token
 client.login(process.env[token]);
 

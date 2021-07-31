@@ -6,7 +6,7 @@
     },
     "release" : {
       "token" : "RELEASE_TOKEN",
-      "prefix" : ","
+      "prefix" : "."
     }
   },
   "modules": [

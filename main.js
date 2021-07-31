@@ -4,7 +4,6 @@
  *\version	1.0
  *\date		17/03/2021
 **/
-bot.user.setPresence({ game: { name: 'with depression', type: "streaming", url: "https://www.twitch.tv/monstercat"}}); 
 require('dotenv').config();
 const config = require("./config.json");
 const gitVersion = require('git-tag-version');
@@ -21,7 +20,6 @@ exports.client = client;
 
 const modules = []
 moduleConf.forEach(element => modules.push({ name : element.name, module : require(element.path) }));
-
 let author;
 
 client.once("ready", () => {
@@ -35,7 +33,10 @@ client.once("reconnecting", () => {
 client.once("disconnect", () => {
   console.log("Disconnect!");
 });
-
+client.on("ready", () => {
+  console.log(`Bot: Hosting ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
+  client.user.setActivity(`.help | *•.¸♡ 𝐋𝐎𝐋𝐈 𝐑𝐆𝐁 𝐒𝐐𝐔𝐀𝐃 ♡¸.•*`);
+});
 client.on("message", async message => {	
   author = message.author;
   if (author.bot) return;

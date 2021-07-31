@@ -63,10 +63,7 @@ client.on("message", async message => {
   }
   bot.user.setPresence({
     status: 'online',
-    activityType: {
-    detail: 'LOLI RGB SQUAD',
-    type: 'PLAYING',
-    }
+    activity: {detail: 'LOLI RGB SQUAD',type: 'PLAYING',}
   })
 
   //Autres Commandes

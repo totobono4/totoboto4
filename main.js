@@ -61,6 +61,13 @@ client.on("message", async message => {
       }
     }
   }
+  bot.user.setPresence({
+    status: 'online',
+    activity: {
+    name: 'LOLI RGB SQUAD',
+    type: 'PLAYING',
+    }
+  })
 
   //Autres Commandes
   if (args[0] === 'help') 

@@ -35,7 +35,7 @@ client.once("disconnect", () => {
 });
 client.on("ready", () => {
   console.log(`Bot: Hosting ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`); 
-  client.user.setActivity(`${prefix} | *•.¸♡ 𝐋𝐎𝐋𝐈 𝐑𝐆𝐁 𝐒𝐐𝐔𝐀𝐃 ♡¸.•*`);
+  client.user.setActivity(`${prefix}help | *•.¸♡ 𝐋𝐎𝐋𝐈 𝐑𝐆𝐁 𝐒𝐐𝐔𝐀𝐃 ♡¸.•*`);
 });
 client.on("message", async message => {	
   author = message.author;

@@ -82,7 +82,7 @@ client.on("message", async message => {
     }
 
     message.channel.send(
-      mainMessage('help', `https://www.patreon.com/bePatron?u=28615868`, help, 'totoboto4 services')
+      mainMessage('--> __Buy me a coffee__ <--', `https://www.patreon.com/bePatron?u=28615868`, help, 'totoboto4 services')
     );
     return;
   }

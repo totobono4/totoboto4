@@ -20,7 +20,7 @@ const client = new Discord.Client();
 exports.client = client;
 
 const modules = []
-moduleConf.forEach(element => modules.push({ name : element.name, module : require(element.path) }));
+moduleConf.forEach(element => modules.push(require(element)));
 
 let author;
 
@@ -44,8 +44,7 @@ client.on("message", async message => {
   const args = message.content.replace(prefix, '').split(' ');
   args[0] = args[0].toLowerCase();
 
-  for (const Module of modules) {
-    const module = Module.module;
+  for (const module of modules) {
     let commands = [];
 
     if (module.commands !== undefined)
@@ -67,11 +66,9 @@ client.on("message", async message => {
   {
     let help = '';
 
-    for (const Module of modules) {
-      const module = Module.module;
-
+    for (const module of modules) {
       if (module.commands !== undefined || (message.channel.nsfw && module.commandsNSFW !== undefined)) {
-        help += `\n**${Module.name}** :`;
+        help += `\n**${module.name}** :`;
 
         if (module.commands !== undefined)
           help += '\n__Commands__ : [ ' + module.commands.join(' - ') + ' ]\n';
@@ -112,10 +109,10 @@ function mainMessage(titleCommand, url, message_description, footer)
 //Token
 client.login(process.env[token]);
 
-const moduleNames = [];
-modules.forEach(element => moduleNames.push(element.name));
+const moduleDescriptions = [];
+modules.forEach(element => moduleDescriptions.push(`${element.name} V.${element.version}`));
 console.log(`release : ${gitVersion()}`);
 console.log(`mode : [ ${mode} ]`);
 console.log(`prefix : [ ${prefix} ]`);
 //console.log(`token:[${token}]`);
-console.log(`loaded-modules : [ ${moduleNames.join(' - ')} ]`);
+console.log(`loaded-modules : [\n  ${moduleDescriptions.join('\n  ')}\n]`);

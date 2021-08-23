@@ -1,3 +1,6 @@
+exports.name = 'NekosLife';
+exports.version = '1.0.0';
+
 const Discord = require('discord.js');
 const { client } = require("../../main.js");
 

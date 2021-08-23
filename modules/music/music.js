@@ -1,3 +1,6 @@
+exports.name = 'Music';
+exports.version = '1.0.0';
+
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 

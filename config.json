@@ -10,13 +10,7 @@
     }
   },
   "modules": [
-    {
-      "name": "Music",
-      "path": "./modules/music/music.js"
-    },
-    {
-      "name": "NekosLife",
-      "path": "./modules/nekoslife/nekoslife.js"
-    }
+    "./modules/music/music.js",
+    "./modules/nekoslife/nekoslife.js"
   ]
 }

@@ -23,7 +23,9 @@ CANARY_TOKEN=<Here your canary token>
 
 Step 3: totoboto4 should now work, you can run `npm run start` or the alias `npm start` to run the Release bot, you can run `npm run canary` to run the canary instance of the bot if you have one.
 
-The bot already have the [totoboto4-module-SDK](https://github.com/totobono4/totoboto4-module-SDK) template included as a module, that provides a cool custom ping command, you can try it right now!
+The bot is now started, the base prefix of the release bot is a dot, so you should write `.<command>` to use any command.
+You can run the `help` command, this command will always exists and automatically show all the modules and commands installed.
+It also already have the [totoboto4-module-SDK](https://github.com/totobono4/totoboto4-module-SDK) template included as a module, that provides a cool custom `ping` command, you can try it right now!
 
 Now you're ready for create/import some modules to your bot, use [totoboto4-module-SDK](https://github.com/totobono4/totoboto4-module-SDK) to create a module, or import a module made by anyone.
 

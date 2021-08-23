@@ -10,7 +10,6 @@
     }
   },
   "modules": [
-    "totoboto4-module-music",
-    "totoboto4-module-nekoslife"
+    "totoboto4-module-sdk"
   ]
 }

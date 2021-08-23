@@ -114,5 +114,4 @@ modules.forEach(element => moduleDescriptions.push(`${element.name} V.${element.
 console.log(`release : ${gitVersion()}`);
 console.log(`mode : [ ${mode} ]`);
 console.log(`prefix : [ ${prefix} ]`);
-//console.log(`token:[${token}]`);
 console.log(`loaded-modules : [\n  ${moduleDescriptions.join('\n  ')}\n]`);

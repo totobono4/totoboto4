@@ -10,7 +10,7 @@
     }
   },
   "modules": [
-    "./modules/music/music.js",
-    "./modules/nekoslife/nekoslife.js"
+    "totoboto4-module-music",
+    "totoboto4-module-nekoslife"
   ]
 }

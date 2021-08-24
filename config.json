@@ -10,7 +10,7 @@
     },
     "SDK": {
       "token" : "SDK_TOKEN",
-      "prefix" : "SDK."
+      "prefix" : "sdk."
     }
   },
   "modules": [

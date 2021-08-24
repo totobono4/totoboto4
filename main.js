@@ -10,10 +10,17 @@ require('dotenv').config();
 const config = require("./config.json");
 const gitVersion = require('git-tag-version');
 
-let mode = null;
-if (process.argv.length === 3) mode = process.argv[2];
-if (require.main !== module) mode = 'SDK';
-const launch = config.launch[mode];
+let mode, launch = null;
+if (require.main === module) {
+  if (process.argv.length === 3) mode = process.argv[2];
+  launch = config.launch[mode];
+} else {
+  mode = 'SDK';
+  launch = {
+    token: 'SDK_TOKEN',
+    prefix: 'SDK.'
+  };
+}
 const { prefix, token } = launch;
 const moduleConf = require("./config.json").modules;
 

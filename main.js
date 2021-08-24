@@ -38,7 +38,7 @@ client.once("disconnect", () => {
   console.log("Disconnect!");
 });
 
-client.on("message", async message => {	
+client.on("messageCreate", async message => {	
   author = message.author;
   if (author.bot) return;
   if (!message.content.startsWith(prefix)) return;
@@ -80,9 +80,9 @@ client.on("message", async message => {
       }
     }
 
-    message.channel.send(
-      mainMessage('--> __Buy me a coffee__ <--', `https://www.patreon.com/bePatron?u=28615868`, help, 'totoboto4 services')
-    );
+    message.channel.send({
+      embeds: [ mainMessage('--> __Buy me a coffee__ <--', `https://www.patreon.com/bePatron?u=28615868`, help, 'totoboto4 services') ]
+    });
     return;
   }
 

@@ -18,7 +18,7 @@ const moduleConf = require("./config.json").modules;
 if (mode === 'SDK') moduleConf.push(`${process.env.PWD}/module.js`);
 
 const Discord = require("discord.js");
-const client = new Discord.Client();
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 exports.client = client;
 
 const modules = []

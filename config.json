@@ -7,6 +7,10 @@
     "release" : {
       "token" : "RELEASE_TOKEN",
       "prefix" : "."
+    },
+    "SDK": {
+      "token" : "SDK_TOKEN",
+      "prefix" : "SDK."
     }
   },
   "modules": [

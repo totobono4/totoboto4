@@ -11,16 +11,13 @@ const config = require("./config.json");
 const gitVersion = require('git-tag-version');
 
 let mode, launch = null;
-if (require.main === module) {
-  if (process.argv.length === 3) mode = process.argv[2];
-  launch = config.launch[mode];
-} else {
-  mode = 'SDK';
+if (process.argv.length === 3) mode = process.argv[2];
+if (mode === 'SDK') {
   launch = {
     token: 'SDK_TOKEN',
     prefix: 'SDK.'
   };
-}
+} else launch = config.launch[mode];
 const { prefix, token } = launch;
 const moduleConf = require("./config.json").modules;
 
@@ -123,4 +120,5 @@ modules.forEach(element => moduleDescriptions.push(`${element.name} V.${element.
 console.log(`release : ${gitVersion()}`);
 console.log(`mode : [ ${mode} ]`);
 console.log(`prefix : [ ${prefix} ]`);
-console.log(`loaded-modules : [\n  ${moduleDescriptions.join('\n  ')}\n]`);
+if (mode === 'SDK') console.log(`module : [ ${moduleDescriptions.join('\n  ')} ]`)
+else console.log(`loaded-modules : [\n  ${moduleDescriptions.join('\n  ')}\n]`);

@@ -11,6 +11,7 @@ const gitVersion = require('git-tag-version');
 
 let mode = null;
 if (process.argv.length === 3) mode = process.argv[2];
+if (require.main !== module) mode = 'SDK';
 const launch = config.launch[mode];
 const { prefix, token } = launch;
 const moduleConf = require("./config.json").modules;

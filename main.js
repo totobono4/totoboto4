@@ -5,6 +5,7 @@
  *\date		17/03/2021
 **/
 
+process.env.TOTOBOTENV = __dirname;
 require('dotenv').config();
 const config = require("./config.json");
 const gitVersion = require('git-tag-version');

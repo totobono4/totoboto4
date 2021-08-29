@@ -15,7 +15,7 @@ if (process.argv.length === 3) mode = process.argv[2];
 const launch = config.launch[mode];
 const { prefix, token } = launch;
 const moduleConf = require("./config.json").modules;
-if (mode === 'SDK') moduleConf.push(`${process.env.PWD}/module.js`);
+if (mode === 'SDK') moduleConf.push(`${process.cwd()}/module.js`);
 
 const Discord = require("discord.js");
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });

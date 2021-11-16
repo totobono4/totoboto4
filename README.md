@@ -20,6 +20,7 @@ You can add the `Canary token` by adding this line to the `.env` file.
 ```.env
 CANARY_TOKEN=<Here your canary token>
 ```
+To find your bot token, go to [this](https://discord.com/developers/applications) page and login with your discord account.  
 
 Step 3: totoboto4 should now work, you can run `npm run start` or the alias `npm start` to run the Release bot, you can run `npm run canary` to run the canary instance of the bot if you have one.
 

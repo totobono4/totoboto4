@@ -14,7 +14,12 @@ let mode = null;
 if (process.argv.length === 3) mode = process.argv[2];
 const launch = config.launch[mode];
 const { prefix, token } = launch;
-const moduleConf = require("./config.json").modules;
+const moduleConf = [];
+const modulesFolder = './node_modules/@totoboto4-module/';
+const fs = require('fs');
+fs.readdirSync(modulesFolder).forEach(file => {
+  moduleConf.push(`@totoboto4-module/${file}`);
+});
 if (mode === 'SDK') moduleConf.push(`${process.cwd()}/module.js`);
 
 const Discord = require("discord.js");

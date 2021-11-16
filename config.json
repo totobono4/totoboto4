@@ -12,7 +12,5 @@
       "token" : "SDK_TOKEN",
       "prefix" : "sdk."
     }
-  },
-  "modules": [
-  ]
+  }
 }

@@ -27,7 +27,10 @@ Step 3: totoboto4 should now work, you can run `npm run start` or the alias `npm
 
 The bot is now started, the base prefix of the release bot is a dot, so you should write `.<command>` to use any command.
 You can run the `help` command, this command will always exists and automatically show all the modules and commands installed.
-It also already have the [totoboto4-module-SDK](https://github.com/totobono4/totoboto4-module-SDK) template included as a module, that provides a cool custom `ping` command, you can try it right now!
+
+You can try it by implementing the [totoboto4-module-example](https://github.com/totobono4/totoboto4-module-example), just stop the bot and run the following command:  
+`npm install https://github.com/totobono4/totoboto4-module-example.git`  
+At this point, if you restart the bot, a new ping command will appear when you run the `help` command, and you'll be able to use it, just try it!
 
 Now you're ready for create/import some modules to your bot, use [totoboto4-module-SDK](https://github.com/totobono4/totoboto4-module-SDK) to create a module, or import a module made by anyone.
 

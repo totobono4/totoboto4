@@ -31,10 +31,8 @@ It also already have the [totoboto4-module-SDK](https://github.com/totobono4/tot
 
 Now you're ready for create/import some modules to your bot, use [totoboto4-module-SDK](https://github.com/totobono4/totoboto4-module-SDK) to create a module, or import a module made by anyone.
 
-You can import any module by enter this following command:  
+You can import any module by entering the following command:  
 `npm install https://github.com/<author>/<repo>.git`  
-To make the bot use the module, you must add its name in the `config.json` file at the `module` array (It's going to be easier later :/), the name of the module should be the name of the repo in lower case, you can find it in `package.json` at `dependencies`.
 
-You can remove a module by typing this command (with the lower case name again in `package.json` at `dependencies`):  
+You can remove a module by typing this command (you can find the name of the module in `package.json` at `dependencies`, it's the repo name in lower case):  
 `npm remove <repo name in lower case>`  
-/!\ Don't forget to remove the name of any module deleted from the `config.json` file at `module`.

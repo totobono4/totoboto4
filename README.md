@@ -4,6 +4,7 @@ This is the `totoboto4 Discord Bot`.
 You can use it to create your bot, anyone can create modules that contains commands with the template [totoboto4-module-SDK](https://github.com/totobono4/totoboto4-module-SDK).
 
 You need `node.js` to use this template, it includes `npm`, just download it from [there](https://nodejs.org/en/download/).
+You need `Git` also, to use git and import github projects as npm modules, download git from [there](https://git-scm.com/).
 
 Now, this is how to make it Work
 
@@ -38,4 +39,4 @@ You can import any module by entering the following command:
 `npm install https://github.com/<author>/<repo>.git`  
 
 You can remove a module by typing this command (you can find the name of the module in `package.json` at `dependencies`, it's the repo name in lower case):  
-`npm remove <repo name in lower case>`  
+`npm remove @totoboto4-module/<repo name in lower case>`  

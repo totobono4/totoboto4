@@ -17,15 +17,16 @@ const { prefix, token } = launch;
 const moduleConf = [];
 const modulesFolder = './node_modules/@totoboto4-module/';
 
-const fs = require('fs');
-if (fs.existsSync('./node_modules/@totoboto4-module/')) {
-  fs.readdirSync(modulesFolder).forEach(file => {
-    moduleConf.push(`@totoboto4-module/${file}`);
-  });
-}
-else console.log("No module installed /!\\");
-
 if (mode === 'SDK') moduleConf.push(`${process.cwd()}/module.js`);
+else {
+  const fs = require('fs');
+  if (fs.existsSync('./node_modules/@totoboto4-module/')) {
+    fs.readdirSync(modulesFolder).forEach(file => {
+      moduleConf.push(`@totoboto4-module/${file}`);
+    });
+  }
+  else console.log("No module installed /!\\");
+}
 
 const Discord = require("discord.js");
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });

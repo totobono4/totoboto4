@@ -16,10 +16,15 @@ const launch = config.launch[mode];
 const { prefix, token } = launch;
 const moduleConf = [];
 const modulesFolder = './node_modules/@totoboto4-module/';
+
 const fs = require('fs');
-fs.readdirSync(modulesFolder).forEach(file => {
-  moduleConf.push(`@totoboto4-module/${file}`);
-});
+if (fs.existsSync('./node_modules/@totoboto4-module/')) {
+  fs.readdirSync(modulesFolder).forEach(file => {
+    moduleConf.push(`@totoboto4-module/${file}`);
+  });
+}
+else console.log("No module installed /!\\");
+
 if (mode === 'SDK') moduleConf.push(`${process.cwd()}/module.js`);
 
 const Discord = require("discord.js");

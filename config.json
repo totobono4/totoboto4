@@ -1,16 +1,13 @@
 {
-  "launch": {
-    "canary" : {
-      "token" : "CANARY_TOKEN",
-      "prefix" : "4nary."
-    },
-    "release" : {
-      "token" : "RELEASE_TOKEN",
-      "prefix" : "."
-    },
-    "SDK": {
-      "token" : "SDK_TOKEN",
-      "prefix" : "sdk."
-    }
+  "canary" : {
+    "token" : "CANARY_TOKEN",
+    "clientId": "CANARY_ID"
+  },
+  "release" : {
+    "token" : "RELEASE_TOKEN",
+    "clientId": "RELEASE_ID"
+  },
+  "SDK": {
+    "token" : "SDK_TOKEN"
   }
 }

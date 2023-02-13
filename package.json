@@ -8,6 +8,8 @@
     "canary": "node main.js canary",
     "register": "node register.js release",
     "register-canary": "node register.js canary",
+    "clean": "node clean.js release",
+    "clean-canary": "node clean.js canary",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

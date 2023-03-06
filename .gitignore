@@ -129,6 +129,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# missing
+package-lock.json
+
 # totoboto4
 totoboto4_modules
 modules.json

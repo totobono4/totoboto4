@@ -14,7 +14,7 @@ const clientId = process.argv.length >= 4 ? process.env[config[mode].clientId] :
 const param5 = process.argv.length >= 5 ? process.argv[4] : null
 const param6 = process.argv.length >= 6 ? process.argv[5] : null
 
-const { REST, Routes } = require('discord.js')
+const { Client, REST, Routes } = require('discord.js')
 const Rest = new REST({ version: '10' }).setToken(token);
 
 class Command {
@@ -111,9 +111,9 @@ class UpdateModules extends Command {
 
 class ModulesManager {
   constructor() {
-    const config_file = "config.json"
+    const config_file = "modules.json"
     const config_path = path.resolve(__dirname, config_file)
-    if (!fs.lstatSync(config_path).isFile()) fs.mkdirSync(config_path)
+    if (!fs.existsSync(config_path)) fs.writeFileSync(config_path, "{}")
 
     this.config = require(config_path)
     if (this.config.modules == undefined) {
@@ -123,7 +123,7 @@ class ModulesManager {
 
     const modules_dir = 'totoboto4_modules'
     const modules_path = path.resolve(__dirname, modules_dir)
-    if (!fs.lstatSync(modules_path).isDirectory()) fs.mkdirSync(modules_path)
+    if (!fs.existsSync(modules_path)) fs.mkdirSync(modules_path)
     
     const modules_dirs = fs.readdirSync('totoboto4_modules')
     this.modules = []
@@ -162,6 +162,18 @@ class ModulesManager {
       }
     }
     return modules
+  }
+
+  /**
+   * 
+   * @param {Client} client 
+   */
+  launch(client) {
+    for (const module of this.modules) {
+      if (this.config.modules[module.name].active) {
+        module.launch(client)
+      }
+    }
   }
 }
 

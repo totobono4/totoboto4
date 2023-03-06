@@ -6,10 +6,5 @@
   "release": {
     "token": "RELEASE_TOKEN",
     "clientId": "RELEASE_ID"
-  },
-  "modules": {
-    "SDK-module": {
-      "active": true
-    }
   }
 }

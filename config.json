@@ -1,13 +1,15 @@
 {
-  "canary" : {
-    "token" : "CANARY_TOKEN",
+  "canary": {
+    "token": "CANARY_TOKEN",
     "clientId": "CANARY_ID"
   },
-  "release" : {
-    "token" : "RELEASE_TOKEN",
+  "release": {
+    "token": "RELEASE_TOKEN",
     "clientId": "RELEASE_ID"
   },
-  "SDK": {
-    "token" : "SDK_TOKEN"
+  "modules": {
+    "SDK-module": {
+      "active": true
+    }
   }
 }

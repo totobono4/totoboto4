@@ -8,6 +8,7 @@ if (process.argv.length === 3) mode = process.argv[2];
 const token = config[mode].token;
 
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { active_modules } = require('./modulesManager');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once("ready", () => {
@@ -29,15 +30,14 @@ client.on('ready', () => {
 client.on('interactionCreate', async interaction => {
   if (!interaction.isChatInputCommand()) return;
 
-  if (interaction.commandName === 'ping') {
-    const user = interaction.user;
-    const url = 'https://tenor.com/view/pong-video-game-atari-tennis-70s-gif-16894549';
-    const gif = 'https://c.tenor.com/2gyJVMt_L6wAAAAC/pong-video-game.gif';
-    await interaction.reply({
-      embeds: [
-        mainMessage(user, gif, 'ping', url, 'pong !', gif, 'totoboto4 ping services')
-      ]
-    });
+  const modules = require('./modulesManager').active_modules
+
+  for (const module of modules) {
+    for (command of module.commands) {
+      if (interaction.commandName === command.application_command.name) {
+        command.execute(interaction)
+      }
+    }
   }
 });
 

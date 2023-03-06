@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node main.js release",
     "canary": "node main.js canary",
-    "register": "node register.js release",
-    "register-canary": "node register.js canary",
-    "clean": "node clean.js release",
-    "clean-canary": "node clean.js canary",
+    "modules-update": "node modulesManager.js update release",
+    "modules-update-canary": "node modulesManager.js update canary",
+    "modules-show": "node modulesManager.js show release",
+    "modules-show-canary": "node modulesManager.js show canary",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -37,10 +37,11 @@ The CANARY mode is a development mode, it allows you to use another bot so you c
 
 ### Install a module
 
-For install a module, Starts to clone you module repo in the `totoboto4_modules` folder, for example:
+For install a module, Starts to clone you module repo in the `totoboto4_modules` folder, and install npm dependencies. For example:
 
 ```shell
 git clone https://github.com/totobono4/totoboto4-module-example
+npm i
 ```
 
 And then, active your module like this:

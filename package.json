@@ -6,6 +6,12 @@
   "scripts": {
     "start": "node main.js release",
     "canary": "node main.js canary",
+    "modules-active": "node modulesManager.js active release",
+    "modules-active-canary": "node modulesManager.js active canary",
+    "modules-clean": "node modulesManager.js clean release",
+    "modules-clean-canary": "node modulesManager.js clean canary",
+    "modules-register": "node modulesManager.js register release",
+    "modules-register-canary": "node modulesManager.js register canary",
     "modules-update": "node modulesManager.js update release",
     "modules-update-canary": "node modulesManager.js update canary",
     "modules-show": "node modulesManager.js show release",

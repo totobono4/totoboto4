@@ -85,7 +85,7 @@ class RegisterModules extends Command {
 
   async execute() {
     const commands = []
-    for (const module of this.modules) for (const command of module.commands) commands.push(command.application_command)
+    for (const module of this.modules) for (const command of module.commands) commands.push(command)
 
     try {
       console.log('Started refreshing application (/) commands.');

@@ -133,5 +133,6 @@ dist
 package-lock.json
 
 # totoboto4
-totoboto4_modules
+totoboto4_modules/*
+!totoboto4_modules/.gitkeep
 modules.json

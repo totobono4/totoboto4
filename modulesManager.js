@@ -2,9 +2,10 @@ const fs = require('fs')
 const path = require('path')
 
 require('dotenv').config()
-const config = require("./config.json")
+const config = require('./config.json')
 
 let mode = null
+let command = null
 if (process.argv.length >= 4) {
   command = process.argv[2]
   mode = process.argv[3]
@@ -14,127 +15,116 @@ const clientId = process.argv.length >= 4 ? process.env[config[mode].clientId] :
 const param5 = process.argv.length >= 5 ? process.argv[4] : null
 const param6 = process.argv.length >= 6 ? process.argv[5] : null
 
-const { Client, REST, Routes } = require('discord.js')
-const Rest = new REST({ version: '10' }).setToken(token);
+const { REST, Routes } = require('discord.js')
+const Rest = new REST({ version: '10' }).setToken(token)
 
 class Command {
-  constructor() {}
-
-  execute() {}
+  execute () {}
 }
 
 class ActiveModule extends Command {
-  constructor(config_path, module_name, active) {
+  constructor (configPath, moduleName, active) {
     super()
-    this.config_path = config_path
-    this.module_name = module_name
+    this.config_path = configPath
+    this.module_name = moduleName
     this.active = active
-    this.config = require(config_path)
+    this.config = require(configPath)
   }
 
-  execute() {
+  execute () {
     if (this.config.modules[this.module_name] !== undefined) {
-      this.config.modules[this.module_name].active = this.active === 'true' ? true : false;
-      fs.writeFileSync(this.config_path, pretty_JSON(this.config))
+      this.config.modules[this.module_name].active = this.active === 'true'
+      fs.writeFileSync(this.config_path, prettyJSON(this.config))
     }
   }
 }
 
 class ShowCommands extends Command {
-  constructor() {
-    super()
-  }
-
-  async execute() {
+  async execute () {
     try {
-      const online_commands = await Rest.get(Routes.applicationCommands(clientId));
-      for (const online_command of online_commands) {
-        console.log(online_command.name)
+      const onlineCommands = await Rest.get(Routes.applicationCommands(clientId))
+      for (const onlineCommand of onlineCommands) {
+        console.log(onlineCommand.name)
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error)
     }
   }
 }
 
 class CleanModules extends Command {
-  constructor() {
-    super()
-  }
-
-  async execute() {
+  async execute () {
     try {
-      console.log('Started deleting application (/) commands.');
-      const online_commands = await Rest.get(Routes.applicationCommands(clientId));
-      for (const online_command of online_commands) {
-        await Rest.delete(Routes.applicationCommand(clientId, online_command.id))
+      console.log('Started deleting application (/) commands.')
+      const onlineCommands = await Rest.get(Routes.applicationCommands(clientId))
+      for (const onlineCommand of onlineCommands) {
+        await Rest.delete(Routes.applicationCommand(clientId, onlineCommand.id))
       }
-      console.log('Successfully deleted application (/) commands.');
+      console.log('Successfully deleted application (/) commands.')
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 }
 
 class RegisterModules extends Command {
-  constructor(modules) {
+  constructor (modules) {
     super()
     this.modules = modules
   }
 
-  async execute() {
+  async execute () {
     const commands = []
     for (const module of this.modules) for (const command of module.commands) commands.push(command)
 
     try {
-      console.log('Started refreshing application (/) commands.');
-      await Rest.put(Routes.applicationCommands(clientId), { body: commands });
-      console.log('Successfully reloaded application (/) commands.');
+      console.log('Started refreshing application (/) commands.')
+      await Rest.put(Routes.applicationCommands(clientId), { body: commands })
+      console.log('Successfully reloaded application (/) commands.')
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 }
 
 class UpdateModules extends Command {
-  constructor(modules) {
+  constructor (modules) {
     super()
     this.modules = modules
   }
 
-  async execute() {
+  async execute () {
     new CleanModules().execute()
     new RegisterModules(this.modules).execute()
   }
 }
 
 class ModulesManager {
-  constructor() {
-    const config_file = "modules.json"
-    const config_path = path.resolve(__dirname, config_file)
-    if (!fs.existsSync(config_path)) fs.writeFileSync(config_path, "{}")
+  constructor () {
+    const configFile = 'modules.json'
+    const configPath = path.resolve(__dirname, configFile)
+    if (!fs.existsSync(configPath)) fs.writeFileSync(configPath, '{}')
 
-    this.config = require(config_path)
-    if (this.config.modules == undefined) {
+    this.config = require(configPath)
+    if (this.config.modules === undefined) {
       this.config.modules = {}
-      fs.writeFileSync(config_path, pretty_JSON(this.config))
+      fs.writeFileSync(configPath, prettyJSON(this.config))
     }
 
-    const modules_dir = 'totoboto4_modules'
-    const modules_path = path.resolve(__dirname, modules_dir)
-    if (!fs.existsSync(modules_path)) fs.mkdirSync(modules_path)
-    
-    const modules_dirs = fs.readdirSync('totoboto4_modules')
+    const modulesDir = 'totoboto4_modules'
+    const modulesPath = path.resolve(__dirname, modulesDir)
+    if (!fs.existsSync(modulesPath)) fs.mkdirSync(modulesPath)
+
+    const modulesDirs = fs.readdirSync('totoboto4_modules')
     this.modules = []
 
-    for (const module_dir of modules_dirs) {
-      const module_dir_path = path.resolve(modules_path, module_dir)
-      const module_path = path.resolve(path.resolve(module_dir_path, "module.js"))
+    for (const moduleDir of modulesDirs) {
+      const moduleDirPath = path.resolve(modulesPath, moduleDir)
+      const modulePath = path.resolve(path.resolve(moduleDirPath, 'module.js'))
       if (
-        (fs.lstatSync(module_dir_path).isDirectory() || fs.lstatSync(module_dir_path).isSymbolicLink()) &&
-        fs.lstatSync(module_path).isFile()
-      ) this.modules.push(require(module_path))
+        (fs.lstatSync(moduleDirPath).isDirectory() || fs.lstatSync(moduleDirPath).isSymbolicLink()) &&
+        fs.lstatSync(modulePath).isFile()
+      ) this.modules.push(require(modulePath))
     }
 
     for (const module of this.modules) {
@@ -142,7 +132,7 @@ class ModulesManager {
         this.config.modules[module.name] = {
           active: false
         }
-        fs.writeFileSync(config_path, pretty_JSON(this.config))
+        fs.writeFileSync(configPath, prettyJSON(this.config))
       }
     }
 
@@ -151,10 +141,10 @@ class ModulesManager {
     this.commands.register = new RegisterModules(this.active_modules)
     this.commands.update = new UpdateModules(this.active_modules)
     this.commands.show = new ShowCommands()
-    this.commands.active = new ActiveModule(config_path, param5, param6)
+    this.commands.active = new ActiveModule(configPath, param5, param6)
   }
 
-  get active_modules() {
+  get active_modules () {
     const modules = []
     for (const module of this.modules) {
       if (this.config.modules[module.name].active) {
@@ -165,10 +155,10 @@ class ModulesManager {
   }
 
   /**
-   * 
-   * @param {Client} client 
+   *
+   * @param {Client} client
    */
-  launch(client) {
+  launch (client) {
     for (const module of this.modules) {
       if (this.config.modules[module.name].active) {
         module.launch(client)
@@ -177,11 +167,11 @@ class ModulesManager {
   }
 }
 
-function pretty_JSON(json) {
+function prettyJSON (json) {
   return JSON.stringify(json, null, 2)
 }
 
-function main() {
+function main () {
   const utils = new ModulesManager()
   utils.commands[command].execute()
 }

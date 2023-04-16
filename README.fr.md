@@ -35,10 +35,11 @@ Le mode CANARY est un mode de développement, il permet de développer sur un de
 
 ### Installer un module
 
-Pour installer un module, commencez par cloner le dépot de votre module dans le dossier `totoboto4_modules`, par exemple:
+Pour installer un module, commencez par cloner le dépot de votre module dans le dossier `totoboto4_modules`, et installez les dépendances npm. Par exemple:
 
 ```shell
 git clone https://github.com/totobono4/totoboto4-module-example
+npm i
 ```
 
 Vous devrez ensuite activer votre module avec les commandes suivantes:

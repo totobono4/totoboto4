@@ -44,7 +44,7 @@ class ShowCommands extends Command {
     try {
       const onlineCommands = await Rest.get(Routes.applicationCommands(clientId))
       for (const onlineCommand of onlineCommands) {
-        console.log(onlineCommand.name)
+        console.log(`${onlineCommand.name}: (${onlineCommand.description}) ${onlineCommand.nsfw ? 'nsfw' : ''}`)
       }
     } catch (error) {
       console.log(error)
@@ -58,6 +58,7 @@ class CleanModules extends Command {
       console.log('Started deleting application (/) commands.')
       const onlineCommands = await Rest.get(Routes.applicationCommands(clientId))
       for (const onlineCommand of onlineCommands) {
+        console.log(`deleting ${onlineCommand.name}...`)
         await Rest.delete(Routes.applicationCommand(clientId, onlineCommand.id))
       }
       console.log('Successfully deleted application (/) commands.')
@@ -79,6 +80,7 @@ class RegisterModules extends Command {
 
     try {
       console.log('Started refreshing application (/) commands.')
+      console.log(`adding commands...\n${commands.map(command => command.name).join('\n')}`)
       await Rest.put(Routes.applicationCommands(clientId), { body: commands })
       console.log('Successfully reloaded application (/) commands.')
     } catch (error) {
@@ -94,7 +96,7 @@ class UpdateModules extends Command {
   }
 
   async execute () {
-    new CleanModules().execute()
+    await new CleanModules().execute()
     new RegisterModules(this.modules).execute()
   }
 }

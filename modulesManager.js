@@ -4,6 +4,8 @@ const path = require('path')
 require('dotenv').config()
 const config = require('./config.json')
 
+const debug = require('./debugger')
+
 let mode = null
 let command = null
 if (process.argv.length >= 4) {
@@ -15,7 +17,7 @@ const clientId = process.argv.length >= 4 ? process.env[config[mode].clientId] :
 const param5 = process.argv.length >= 5 ? process.argv[4] : null
 const param6 = process.argv.length >= 6 ? process.argv[5] : null
 
-const { REST, Routes } = require('discord.js')
+const { REST, Routes, Events } = require('discord.js')
 const Rest = new REST({ version: '10' }).setToken(token)
 
 class Command {
@@ -55,13 +57,13 @@ class ShowCommands extends Command {
 class CleanModules extends Command {
   async execute () {
     try {
-      console.log('Started deleting application (/) commands.')
+      debug.debug(debug.layers.Command, debug.types.Debug, 'Started deleting application (/) commands.')
       const onlineCommands = await Rest.get(Routes.applicationCommands(clientId))
       for (const onlineCommand of onlineCommands) {
-        console.log(`deleting ${onlineCommand.name}...`)
+        debug.debug(debug.layers.Command, debug.types.Debug, `deleting ${onlineCommand.name}...`)
         await Rest.delete(Routes.applicationCommand(clientId, onlineCommand.id))
       }
-      console.log('Successfully deleted application (/) commands.')
+      debug.debug(debug.layers.Command, debug.types.Debug, 'Successfully deleted application (/) commands.')
     } catch (error) {
       console.error(error)
     }
@@ -79,10 +81,10 @@ class RegisterModules extends Command {
     for (const module of this.modules) for (const command of module.commands) commands.push(command)
 
     try {
-      console.log('Started refreshing application (/) commands.')
-      console.log(`adding commands...\n${commands.map(command => command.name).join('\n')}`)
+      debug.debug(debug.layers.Command, debug.types.Debug, 'Started refreshing application (/) commands.')
+      debug.debug(debug.layers.Command, debug.types.Debug, 'adding commands...', commands.map(command => command.name))
       await Rest.put(Routes.applicationCommands(clientId), { body: commands })
-      console.log('Successfully reloaded application (/) commands.')
+      debug.debug(debug.layers.Command, debug.types.Debug, 'Successfully reloaded application (/) commands.')
     } catch (error) {
       console.error(error)
     }
@@ -161,6 +163,13 @@ class ModulesManager {
    * @param {Client} client
    */
   launch (client) {
+    process.on('unhandledRejection', error => {
+      debug.debug(debug.layers.Bot, debug.types.Warning, "Oups... On dirait qu'une commande n'a pas fonctionné...")
+    });
+
+    client.on(Events.Debug, log => debug.debug(debug.layers.Client, debug.types.Debug, log))
+    client.on(Events.Error, error => debug.debug(debug.layers.Client, debug.types.Error, error))
+
     for (const module of this.modules) {
       if (this.config.modules[module.name].active) {
         module.launch(client)

@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "node main.js release",
-    "canary": "node main.js canary",
+    "canary": "nodemon main.js canary",
     "modules-active": "node modulesManager.js active release",
     "modules-active-canary": "node modulesManager.js active canary",
     "modules-clean": "node modulesManager.js clean release",
@@ -31,7 +31,8 @@
   "dependencies": {
     "discord.js": "^14.9.0",
     "dotenv": "^16.0.3",
-    "git-tag-version": "^1.3.1"
+    "git-tag-version": "^1.3.1",
+    "nodemon": "^3.0.1"
   },
   "devDependencies": {
     "eslint": "^8.38.0",

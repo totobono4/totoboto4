@@ -2,6 +2,7 @@ process.env.TOTOBOTENV = __dirname
 require('dotenv').config()
 const config = require('./config.json')
 const gitVersion = require('git-tag-version')
+const debug = require('./debugger')
 
 let mode = null
 if (process.argv.length === 3) mode = process.argv[2]
@@ -16,25 +17,24 @@ const client = new Client({
   ]
 })
 
+debug.debug(debug.layers.Bot, debug.types.Debug, "Starting totoboto4...", [`release : [ ${gitVersion()} ]`, `mode : [ ${mode} ]`])
+
 client.once('ready', () => {
-  console.log('Ready!')
+  debug.debug(debug.layers.Bot, debug.types.Debug, "Ready!")
 })
 
 client.once('reconnecting', () => {
-  console.log('Reconnecting!')
+  debug.debug(debug.layers.Bot, debug.types.Debug, "Reconnecting...")
 })
 
 client.once('disconnect', () => {
-  console.log('Disconnect!')
+  debug.debug(debug.layers.Bot, debug.types.Debug, "Disconnect.")
 })
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`)
+  debug.debug(debug.layers.Bot, debug.types.Debug, `Logged in as ${client.user.tag}!`)
 })
 
 require('./modulesManager').launch(client)
 
 client.login(process.env[token])
-
-console.log(`release : ${gitVersion()}`)
-console.log(`mode : [ ${mode} ]`)

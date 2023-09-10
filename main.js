@@ -2,7 +2,8 @@ process.env.TOTOBOTENV = __dirname
 require('dotenv').config()
 const config = require('./config.json')
 const gitVersion = require('git-tag-version')
-const debug = require('./debugger')
+const { Debugger } = require('totoboto4-core')
+const debug = new Debugger()
 
 let mode = null
 if (process.argv.length === 3) mode = process.argv[2]

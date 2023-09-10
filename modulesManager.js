@@ -3,8 +3,8 @@ const path = require('path')
 
 require('dotenv').config()
 const config = require('./config.json')
-
-const debug = require('./debugger')
+const { Debugger, Module } = require('totoboto4-core')
+const debug = new Debugger()
 
 let mode = null
 let command = null
@@ -17,7 +17,7 @@ const clientId = process.argv.length >= 4 ? process.env[config[mode].clientId] :
 const param5 = process.argv.length >= 5 ? process.argv[4] : null
 const param6 = process.argv.length >= 6 ? process.argv[5] : null
 
-const { REST, Routes, Events } = require('discord.js')
+const { Client, REST, Routes, Events } = require('discord.js')
 const Rest = new REST({ version: '10' }).setToken(token)
 
 class Command {
@@ -71,6 +71,10 @@ class CleanModules extends Command {
 }
 
 class RegisterModules extends Command {
+  /**
+   * 
+   * @param {Array<Module>} modules 
+   */
   constructor (modules) {
     super()
     this.modules = modules
@@ -92,6 +96,10 @@ class RegisterModules extends Command {
 }
 
 class UpdateModules extends Command {
+  /**
+   * 
+   * @param {Array<Module>} modules 
+   */
   constructor (modules) {
     super()
     this.modules = modules
@@ -119,7 +127,7 @@ class ModulesManager {
     const modulesPath = path.resolve(__dirname, modulesDir)
     if (!fs.existsSync(modulesPath)) fs.mkdirSync(modulesPath)
 
-    const modulesDirs = fs.readdirSync('totoboto4_modules')
+    const modulesDirs = fs.readdirSync(modulesDir)
     this.modules = []
 
     for (const moduleDir of modulesDirs) {
@@ -172,6 +180,7 @@ class ModulesManager {
 
     for (const module of this.modules) {
       if (this.config.modules[module.name].active) {
+        
         module.launch(client)
       }
     }

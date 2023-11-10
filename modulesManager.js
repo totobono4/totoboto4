@@ -137,7 +137,10 @@ class ModulesManager {
       if (
         (fs.lstatSync(moduleDirPath).isDirectory() || fs.lstatSync(moduleDirPath).isSymbolicLink()) &&
         fs.lstatSync(modulePath).isFile()
-      ) this.modules.push(require(modulePath))
+      ) {
+        const NewModule = require(modulePath)
+        this.modules.push(new NewModule(modulator))
+      }
     }
 
     for (const module of this.modules) {

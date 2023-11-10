@@ -3,8 +3,9 @@ const path = require('path')
 
 require('dotenv').config()
 const config = require('./config.json')
-const { Debugger, Module } = require('totoboto4-core')
+const { Debugger, Module, Modulator } = require('totoboto4-core')
 const debug = new Debugger()
+const modulator = Modulator.getInstance()
 
 let mode = null
 let command = null
@@ -178,12 +179,7 @@ class ModulesManager {
     client.on(Events.Debug, log => debug.debug(debug.layers.Client, debug.types.Debug, log))
     client.on(Events.Error, error => debug.debug(debug.layers.Client, debug.types.Error, error))
 
-    for (const module of this.modules) {
-      if (this.config.modules[module.name].active) {
-        
-        module.launch(client)
-      }
-    }
+    modulator.launch(client)
   }
 }
 
